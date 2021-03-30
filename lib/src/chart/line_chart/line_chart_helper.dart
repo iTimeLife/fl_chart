@@ -24,7 +24,10 @@ class LineChartHelper {
     for (var i = 0; i < lineBarsData.length; i++) {
       final lineBarChart = lineBarsData[i];
       if (lineBarChart.spots.isEmpty) {
-        throw Exception('spots could not be null or empty');
+        // throw Exception('spots could not be null or empty');
+        final result = LineChartMinMaxAxisValues(0, 1, 0, 1);
+        _cachedResults[listWrapper] = result;
+        return result;
       }
     }
 

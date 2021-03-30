@@ -1155,21 +1155,27 @@ class LineChartPainter extends AxisChartPainter<LineChartData> {
     final drawingTextPainters = <TextPainter>[];
 
     final tooltipItems = tooltipData.getTooltipItems(showingTooltipSpots.showingSpots);
-    if (tooltipItems.length != showingTooltipSpots.showingSpots.length) {
-      throw Exception('tooltipItems and touchedSpots size should be same');
-    }
+    // if (tooltipItems.length != showingTooltipSpots.showingSpots.length) {
+      // throw Exception('tooltipItems and touchedSpots size should be same');
+    // }
 
-    for (var i = 0; i < showingTooltipSpots.showingSpots.length; i++) {
+    for (var i = 0; i < tooltipItems.length; i++) {
       final tooltipItem = tooltipItems[i];
       if (tooltipItem == null) {
         continue;
       }
 
-      final span = TextSpan(
-        style: tooltipItem.textStyle,
-        text: tooltipItem.text,
-        children: tooltipItem.children,
-      );
+      final span = TextSpan(children: [
+        if(tooltipItem.dot != null) TextSpan(
+            text: "⬤ ",
+            style: TextStyle(
+                color: tooltipItem.dot
+            )
+        ),
+        TextSpan(
+            style: tooltipItem.textStyle, text: tooltipItem.text
+        )
+      ]);
 
       final tp = TextPainter(
           text: span,
